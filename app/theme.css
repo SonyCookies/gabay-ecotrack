@@ -1,0 +1,24 @@
+/* GABAY Custom Color Theme */
+@theme inline {
+  /* Dark Green Brand Palette */
+  --color-brand-50: #edfbf4;
+  --color-brand-100: #d2f4e0;
+  --color-brand-200: #a9e8c4;
+  --color-brand-300: #74d6a2;
+  --color-brand-400: #42bd80;
+  --color-brand-500: #21a065;
+  --color-brand-600: #14804f;
+  --color-brand-700: #116641;
+  --color-brand-800: #115135;
+  --color-brand-900: #0f432d;
+  --color-brand-950: #08261a;
+  
+  /* Overrides for generic color mapping */
+  --color-background: var(--color-brand-950);
+  --color-foreground: var(--color-brand-50);
+}
+
+:root {
+  --background: var(--color-brand-950);
+  --foreground: var(--color-brand-50);
+}
