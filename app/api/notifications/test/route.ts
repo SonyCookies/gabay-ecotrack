@@ -20,7 +20,7 @@ export async function POST(request: Request) {
     }
 
     const userData = userDoc.data();
-    const fcmTokens = userData?.fcmTokens || [];
+    const fcmTokens: string[] = userData?.fcmTokens || [];
 
     console.log(`[Notification Relay] Found ${fcmTokens.length} registered tokens for UID: ${uid}`);
 
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
     // Cleanup failed tokens from Firestore
     if (tokensToRemove.length > 0) {
         console.log(`[Notification Relay] Cleaning up ${tokensToRemove.length} stale tokens...`);
-        const remainingTokens = fcmTokens.filter(t => !tokensToRemove.includes(t));
+        const remainingTokens = fcmTokens.filter((t: string) => !tokensToRemove.includes(t));
         await userRef.update({
             fcmTokens: remainingTokens
         });
