@@ -88,9 +88,13 @@ export async function sendPickupCompleteEmail(opts: PickupCompleteEmailOptions) 
 
         <!-- Header -->
         <tr>
-          <td style="background:linear-gradient(135deg,#14532d,#166534);padding:40px 48px;text-align:center;">
-            <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.5px;">GABAY EcoTrack</h1>
-            <p style="margin:8px 0 0;color:rgba(255,255,255,0.7);font-size:13px;font-weight:500;">Community Waste Management</p>
+          <td style="background:#ffffff;padding:48px;text-align:center;border-bottom:1px solid #f0f0f0;">
+            <a href="${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}" style="text-decoration:none;">
+              <img src="${process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"}/logo/gabaylogo.png" 
+                   alt="GABAY EcoTrack" 
+                   style="width:180px;height:auto;display:block;margin:0 auto;" />
+            </a>
+            <p style="margin:16px 0 0;color:#166534;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;">Community Waste Management</p>
           </td>
         </tr>
 
