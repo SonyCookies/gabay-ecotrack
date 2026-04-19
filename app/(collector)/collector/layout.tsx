@@ -8,7 +8,8 @@ import {
   Settings,
   Bell,
   LayoutDashboard,
-  ClipboardList
+  ClipboardList,
+  MessageSquare
 } from "lucide-react";
 import Sidebar, { NavItem } from "@/components/layout/Sidebar";
 import Appbar from "@/components/layout/Appbar";
@@ -18,6 +19,7 @@ const collectorNavItems: NavItem[] = [
   { name: "Pickups", href: "/collector/pickups", icon: ClipboardList },
   { name: "Scan", href: "/collector/scan", icon: Maximize },
   { name: "My Profile", href: "/collector/profile", icon: Settings },
+  { name: "SMS Alert", href: "/collector/sms-alert", icon: MessageSquare },
 ];
 
 export default function CollectorLayout({

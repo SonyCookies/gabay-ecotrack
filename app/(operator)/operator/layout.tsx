@@ -7,7 +7,8 @@ import {
   Settings,
   MapPin,
   User,
-  TicketCheck
+  TicketCheck,
+  MessageSquare
 } from "lucide-react";
 import Sidebar, { NavItem } from "@/components/layout/Sidebar";
 import Appbar from "@/components/layout/Appbar";
@@ -18,6 +19,7 @@ const operatorNavItems: NavItem[] = [
   { name: "Rewards Management", href: "/operator/rewards", icon: TicketCheck },
   { name: "Collection Points", href: "/operator/collection-points", icon: MapPin },
   { name: "My Profile", href: "/operator/profile", icon: User },
+  { name: "SMS Alert", href: "/operator/sms-alert", icon: MessageSquare },
 ];
 
 export default function OperatorLayout({

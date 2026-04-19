@@ -188,7 +188,6 @@ export default function PickupRequestMap({ onSelectLocation, selectedLocation, a
 
   return (
     <MapContainer 
-      key={`${center[0]}-${center[1]}`}
       id="gabay-resident-map"
       center={center} 
       zoom={zoom} 

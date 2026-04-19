@@ -56,6 +56,7 @@ export default function CollectorPickupsPage() {
 
   const [inspectingRequest, setInspectingRequest] = useState<PickupRequest | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
 
   // Rating Modal State
   const [showRatingModal, setShowRatingModal] = useState(false);
@@ -108,6 +109,36 @@ export default function CollectorPickupsPage() {
       gabayToast.error("Error", "Could not update status.");
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleNavigate = () => {
+    if (!inspectingRequest) return;
+    setIsNavigating(true);
+
+    const openMaps = (lat?: number, lng?: number) => {
+      const url = lat && lng 
+        ? `https://www.google.com/maps/dir/?api=1&origin=${lat},${lng}&destination=${inspectingRequest.lat},${inspectingRequest.lng}`
+        : `https://www.google.com/maps/dir/?api=1&destination=${inspectingRequest.lat},${inspectingRequest.lng}`;
+        
+      const newWin = window.open(url, '_blank');
+      if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
+          window.location.href = url;
+      }
+      setIsNavigating(false);
+    };
+
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => openMaps(position.coords.latitude, position.coords.longitude),
+        (err) => {
+          console.warn("Geolocation failed or denied, using destination-only route", err);
+          openMaps();
+        },
+        { enableHighAccuracy: true, timeout: 7000 }
+      );
+    } else {
+      openMaps();
     }
   };
 
@@ -379,13 +410,23 @@ export default function CollectorPickupsPage() {
               {/* Action Footer */}
               <div className="p-8 border-t border-gray-100 bg-white/80 backdrop-blur-md">
                 {inspectingRequest.status === 'scheduled' ? (
-                  <button 
-                    onClick={() => setShowRatingModal(true)}
-                    disabled={isSubmitting}
-                    className="w-full py-5 bg-gray-900 text-white font-semibold text-sm rounded-[2rem] shadow-2xl shadow-brand-900/10 hover:bg-black active:scale-95 transition-all flex items-center justify-center gap-3"
-                  >
-                    Proceed to Rating <ArrowRight className="w-4 h-4" />
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-3 w-full">
+                    <button 
+                      onClick={handleNavigate}
+                      disabled={isNavigating}
+                      className="flex-1 py-5 bg-brand-50 text-brand-700 font-semibold text-sm rounded-[2rem] border border-brand-200 hover:bg-brand-100 active:scale-95 disabled:opacity-70 disabled:active:scale-100 transition-all flex items-center justify-center gap-2"
+                    >
+                      {isNavigating ? <Loader2 className="w-4 h-4 animate-spin" /> : <MapIcon className="w-4 h-4" />} 
+                      {isNavigating ? 'Locating...' : 'Navigate'}
+                    </button>
+                    <button 
+                      onClick={() => setShowRatingModal(true)}
+                      disabled={isSubmitting}
+                      className="flex-[1.5] py-5 bg-gray-900 text-white font-semibold text-sm rounded-[2rem] shadow-2xl shadow-brand-900/10 hover:bg-black active:scale-95 transition-all flex items-center justify-center gap-3"
+                    >
+                      Proceed to Rating <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </div>
                 ) : (
                   <div className="w-full py-5 bg-gray-50 text-gray-400 font-semibold text-sm rounded-[2rem] border border-gray-100 flex items-center justify-center gap-3">
                     Already Collected <CheckCircle2 className="w-4 h-4" />

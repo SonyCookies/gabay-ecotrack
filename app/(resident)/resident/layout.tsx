@@ -14,6 +14,7 @@ import {
   Sparkles,
   ShieldCheck,
   Scan,
+  MessageSquare,
 } from "lucide-react";
 import Sidebar, { NavItem } from "@/components/layout/Sidebar";
 import Appbar from "@/components/layout/Appbar";
@@ -26,6 +27,7 @@ const residentNavItems: NavItem[] = [
   { name: "Eco Points", href: "/resident/eco-points", icon: Sparkles },
   { name: "Waste Guidance", href: "/resident/guidance", icon: BookOpen },
   { name: "My Profile", href: "/resident/profile", icon: ShieldCheck },
+  { name: "SMS Alert", href: "/resident/sms-alert", icon: MessageSquare },
 ];
 
 export default function ResidentLayout({
