@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import { Toaster } from "sonner";
 import StoreProvider from "@/components/providers/StoreProvider";
@@ -10,10 +10,29 @@ const montserrat = Montserrat({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: "#1b4018",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
+
 export const metadata: Metadata = {
   title: "GABAY EcoTrack",
   description: "Centralized solid waste management logistics.",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "GABAY",
+  },
+  icons: {
+    apple: "/icons/icon-192x192.png",
+  },
 };
+
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -43,6 +62,19 @@ export default function RootLayout({
             className: "flex justify-end p-0 bg-transparent",
           }}
         />
+        <Script id="register-sw" strategy="afterInteractive">
+          {`
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').then(function(registration) {
+                  console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                }, function(err) {
+                  console.log('ServiceWorker registration failed: ', err);
+                });
+              });
+            }
+          `}
+        </Script>
       </body>
     </html>
   );
