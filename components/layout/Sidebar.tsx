@@ -165,7 +165,7 @@ export default function Sidebar({ items, isOpen, onClose }: SidebarProps) {
         type="danger"
         title="Disconnect Session"
         message="Are you sure you want to securely sign out of the GABAY EcoTrack Platform? You will need to re-authenticate with your credentials to access the system again."
-        confirmText="Sign Out Securely"
+        confirmText="Sign Out"
         cancelText="Cancel"
         isLoading={isLoggingOut}
       />

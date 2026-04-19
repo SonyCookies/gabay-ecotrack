@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { AlertTriangle, Info, X, ShieldAlert, CheckCircle2, AlertCircle } from "lucide-react";
+import { AlertTriangle, Info, X, ShieldAlert, CheckCircle2 } from "lucide-react";
 
 export type ModalType = "danger" | "warning" | "info" | "success";
 
@@ -41,27 +41,35 @@ export default function ConfirmationModal({
 
   if (!isOpen) return null;
 
-  // Configuration for different modal types
+  // Configuration for different modal types with Login-inspired aesthetics
   const config = {
     danger: {
       icon: ShieldAlert,
-      iconBg: "bg-red-50 text-red-600 border-red-100",
-      btnClass: "bg-red-600 hover:bg-red-700 focus:ring-red-500/20 shadow-red-500/20 text-white",
+      accentColor: "text-red-400",
+      headerBg: "bg-red-950",
+      circleBorder: "border-red-900/30",
+      btnClass: "bg-red-600 hover:bg-red-700 shadow-red-900/20",
     },
     warning: {
       icon: AlertTriangle,
-      iconBg: "bg-orange-50 text-orange-600 border-orange-100",
-      btnClass: "bg-orange-500 hover:bg-orange-600 focus:ring-orange-500/20 shadow-orange-500/20 text-white",
+      accentColor: "text-amber-400",
+      headerBg: "bg-amber-950",
+      circleBorder: "border-amber-900/30",
+      btnClass: "bg-amber-600 hover:bg-amber-700 shadow-amber-900/20",
     },
     info: {
       icon: Info,
-      iconBg: "bg-brand-50 text-brand-600 border-brand-100",
-      btnClass: "bg-brand-600 hover:bg-brand-700 focus:ring-brand-500/20 shadow-brand-500/20 text-white",
+      accentColor: "text-brand-400",
+      headerBg: "bg-brand-900",
+      circleBorder: "border-brand-800/30",
+      btnClass: "bg-brand-600 hover:bg-brand-700 shadow-brand-900/20",
     },
     success: {
       icon: CheckCircle2,
-      iconBg: "bg-green-50 text-green-600 border-green-100",
-      btnClass: "bg-green-600 hover:bg-green-700 focus:ring-green-500/20 shadow-green-500/20 text-white",
+      accentColor: "text-emerald-400",
+      headerBg: "bg-emerald-950",
+      circleBorder: "border-emerald-900/30",
+      btnClass: "bg-emerald-600 hover:bg-emerald-700 shadow-emerald-900/20",
     },
   };
 
@@ -71,55 +79,62 @@ export default function ConfirmationModal({
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       
-      {/* Dark Blur Backdrop */}
+      {/* Premium Blur Backdrop (Matching Login logic) */}
       <div 
-        className="fixed inset-0 bg-gray-900/40 backdrop-blur-sm transition-opacity" 
+        className="fixed inset-0 bg-gray-900/60 backdrop-blur-md transition-opacity duration-300" 
         onClick={!isLoading ? onClose : undefined}
       ></div>
 
-      {/* Modal Panel */}
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-200 border border-gray-100">
+      {/* Modal Panel - Redesigned with Login Page Aesthetics */}
+      <div className="relative bg-white rounded-[2.5rem] shadow-[0_32px_64px_-16px_rgba(0,0,0,0.3)] w-full max-w-md overflow-hidden transform transition-all animate-in fade-in zoom-in-95 duration-500 border border-white/20">
         
-        {/* Close Button top right */}
-        <button 
-          onClick={onClose}
-          disabled={isLoading}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 p-1.5 rounded-lg transition-colors focus:outline-none"
-        >
-          <X className="w-5 h-5" />
-        </button>
+        {/* Header: High-Contrast Brand Section (Inspired by Login Page's Left Column) */}
+        <div className={`relative h-32 ${currentConfig.headerBg} flex items-center justify-center overflow-hidden`}>
+          {/* Subtle geometric circles matching typography logo curves */}
+          <div className={`absolute top-[-20%] left-[-10%] w-40 h-40 rounded-full border-[12px] ${currentConfig.circleBorder} z-0`}></div>
+          <div className={`absolute bottom-[-20%] right-[-10%] w-32 h-32 rounded-full border-[8px] ${currentConfig.circleBorder} z-0`}></div>
+          
+          {/* Icon Container */}
+          <div className="relative z-10 w-16 h-16 rounded-[1.25rem] bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-inner">
+            <IconComponent className={`w-8 h-8 ${currentConfig.accentColor}`} />
+          </div>
 
-        <div className="p-6 sm:p-8">
-          <div className="flex flex-col items-center text-center">
-            
-            {/* Thematic Icon */}
-            <div className={`w-14 h-14 rounded-full flex items-center justify-center border shadow-sm mb-5 ${currentConfig.iconBg}`}>
-              <IconComponent className="w-7 h-7" />
-            </div>
+          {/* Close Button top right (Subtle on dark bg) */}
+          <button 
+            onClick={onClose}
+            disabled={isLoading}
+            className="absolute top-6 right-6 text-white/40 hover:text-white bg-white/5 hover:bg-white/10 p-2 rounded-xl transition-all focus:outline-none z-20 group"
+          >
+            <X className="w-5 h-5 group-hover:rotate-90 transition-transform duration-300" />
+          </button>
+        </div>
 
-            {/* Text Content */}
-            <h3 className="text-xl font-bold text-gray-900 mb-2" id="modal-title">
+        {/* Body Section (Inspired by Login Page's Right Column) */}
+        <div className="px-8 pt-8 pb-4">
+          <div className="flex flex-col items-center text-center space-y-3">
+            <h3 className="text-3xl font-black text-gray-900 tracking-tight leading-tight" id="modal-title">
               {title}
             </h3>
-            <div className="text-sm font-medium text-gray-500 leading-relaxed">
+            <div className="text-sm font-semibold text-gray-500 leading-relaxed max-w-[280px]">
               {message}
             </div>
-
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="bg-gray-50 px-6 py-4 sm:flex sm:flex-row-reverse sm:px-8 border-t border-gray-100 gap-3 gap-y-3">
+        {/* Action Buttons Section */}
+        <div className="px-8 py-8 space-y-3">
           <button
             type="button"
             onClick={onConfirm}
             disabled={isLoading}
-            className={`w-full inline-flex justify-center rounded-xl px-5 py-2.5 text-sm font-bold shadow-sm transition-all focus:outline-none focus:ring-4 sm:w-auto disabled:opacity-70 disabled:cursor-not-allowed ${currentConfig.btnClass}`}
+            className={`w-full flex items-center justify-center py-4 px-6 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl shadow-xl transition-all active:scale-[0.98] disabled:opacity-70 disabled:cursor-not-allowed group ${currentConfig.btnClass}`}
           >
             {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <div className="h-5 w-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
             ) : (
-              confirmText
+              <>
+                {confirmText}
+              </>
             )}
           </button>
           
@@ -127,10 +142,15 @@ export default function ConfirmationModal({
             type="button"
             onClick={onClose}
             disabled={isLoading}
-            className="mt-3 sm:mt-0 w-full inline-flex justify-center rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-200 hover:bg-gray-50 transition-colors sm:w-auto hover:text-gray-900"
+            className="w-full flex items-center justify-center py-4 px-6 bg-gray-50 text-gray-400 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-100 hover:text-gray-600 transition-all active:scale-[0.98] border border-gray-100"
           >
             {cancelText}
           </button>
+        </div>
+
+        {/* Footer Accent (Subtle line) */}
+        <div className="h-1.5 w-full bg-gray-50 flex items-center justify-center">
+            <div className="w-12 h-1 bg-gray-200 rounded-full" />
         </div>
 
       </div>
