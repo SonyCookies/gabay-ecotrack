@@ -13,6 +13,7 @@ import {
   BookOpen,
   Sparkles,
   ShieldCheck,
+  Scan,
 } from "lucide-react";
 import Sidebar, { NavItem } from "@/components/layout/Sidebar";
 import Appbar from "@/components/layout/Appbar";
@@ -21,6 +22,7 @@ import Appbar from "@/components/layout/Appbar";
 const residentNavItems: NavItem[] = [
   { name: "My Dashboard", href: "/resident/dashboard", icon: LayoutDashboard },
   { name: "Request Pickup", href: "/resident/pickup-request", icon: Truck },
+  { name: "Waste Scanner", href: "/resident/scanner", icon: Scan },
   { name: "Eco Points", href: "/resident/eco-points", icon: Sparkles },
   { name: "Waste Guidance", href: "/resident/guidance", icon: BookOpen },
   { name: "My Profile", href: "/resident/profile", icon: ShieldCheck },

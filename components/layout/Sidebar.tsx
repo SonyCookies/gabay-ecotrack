@@ -86,6 +86,7 @@ export default function Sidebar({ items, isOpen, onClose }: SidebarProps) {
                 width={170} 
                 height={48} 
                 className="w-auto h-12 object-contain group-hover:-translate-y-0.5 transition-transform"
+                style={{ width: "auto" }}
                 priority
               />
             </Link>

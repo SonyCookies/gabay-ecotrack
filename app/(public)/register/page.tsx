@@ -158,6 +158,7 @@ export default function RegisterPage() {
                width={240} 
                height={80} 
                className="w-auto h-16 sm:h-20 object-contain drop-shadow-sm"
+               style={{ width: "auto" }}
                priority
              />
           </div>
